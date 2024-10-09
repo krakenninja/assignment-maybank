@@ -1,0 +1,45 @@
+<?xml version="1.1" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+        http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+    <!--
+        Default Password : admin 
+    -->
+    <changeSet author="maybank" 
+               id="insert-table-user-admin-1.0.0">
+        <loadData file="admin-user-data-1.0.0.csv" 
+                  tableName="tbl_user"
+                  separator=","
+                  relativeToChangelogFile="true"/>
+    </changeSet>
+    <changeSet author="maybank" 
+               id="insert-table-userroles-admin-1.0.0">
+        <loadData file="admin-userroles-data-1.0.0.csv" 
+                  tableName="tbl_user_roles"
+                  separator=","
+                  relativeToChangelogFile="true"/>
+    </changeSet>
+    <!-- BEGIN_INITDEMO :: for PoC/Demo sake ; I will create the required users 
+         as per data file "dataSource.txt" provided by Maybank, in assumption 
+         that by right the users should already exist in the system
+         
+         Default Password : password
+    -->
+    <changeSet author="maybank" 
+               id="insert-table-user-customers-1.0.0">
+        <loadData file="customers-user-data-1.0.0.csv"
+                  tableName="tbl_user"
+                  separator=","
+                  relativeToChangelogFile="true"/>
+    </changeSet>
+    <changeSet author="maybank" 
+               id="insert-table-userroles-customers-1.0.0">
+        <loadData file="customers-userroles-data-1.0.0.csv" 
+                  tableName="tbl_user_roles"
+                  separator=","
+                  relativeToChangelogFile="true"/>
+    </changeSet>
+    <!-- END_INITDEMO -->
+</databaseChangeLog>

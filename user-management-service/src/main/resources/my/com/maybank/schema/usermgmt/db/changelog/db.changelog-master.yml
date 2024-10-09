@@ -1,0 +1,5 @@
+databaseChangeLog:
+  - include:
+      file: my/com/maybank/schema/db/changelog/1.0.0/1.0.0.changelog.usermgmt.xml
+  - include:
+      file: my/com/maybank/schema/usermgmt/db/changelog/1.0.0/1.0.0.changelog.xml

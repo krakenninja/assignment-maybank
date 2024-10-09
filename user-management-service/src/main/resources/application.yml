@@ -1,0 +1,46 @@
+spring:
+  application:
+    name: User Management Service
+  liquibase:
+    enabled: true
+    change-log: my/com/maybank/schema/usermgmt/db/changelog/db.changelog-master.yml
+  datasource:
+    url: ${USER_MANAGEMENT_DATASOURCE_JDBC_URL:jdbc:postgresql://localhost:5432/maybank}
+    username: ${USER_MANAGEMENT_DATASOURCE_USERNAME:******}
+    password: ${USER_MANAGEMENT_DATASOURCE_PASS:******}
+    driver-class-name: ${USER_MANAGEMENT_DATASOURCE_DRIVER_CLASS_NAME:org.postgresql.Driver}
+    hikari:
+      minimum-idle: ${USER_MANAGEMENT_HIKARI_MINIMUM_IDLE:10}
+      maximum-pool-size: ${USER_MANAGEMENT_HIKARI_MAX_POOL_SIZE:250}
+      idle-timeout: ${USER_MANAGEMENT_HIKARI_IDLE_TIMEOUT:900000}
+  jpa:
+    hibernate:
+      ddl-auto: none
+    show-sql: ${USER_MANAGEMENT_JPA_SHOW_SQL_QUERIES:false}
+    open-in-view: ${USER_MANAGEMENT_JPA_OPEN_IN_VIEW:false}
+    properties:
+      hibernate:
+        session:
+          events:
+            log:
+              LOG_QUERIES_SLOWER_THAN_MS: ${USER_MANAGEMENT_JPA_LOG_QUERIES_SLOWER_THAN:250}
+
+server:
+  port: ${USER_MANAGEMENT_REST_SERVICE_PORT:18081}
+
+logging:
+  level:
+    org.springframework: INFO
+    my.com.maybank: ${USER_MANAGEMENT_LOGGING_LEVEL:INFO}
+    com.password4j: OFF
+
+app:
+  security:
+    authn-user: 
+      # salt 128bit (32 character)
+      salt: sBT0WFr4Uwp6OmHmSaqRgspM4rVD4O6Q
+    # http security
+    http-security: 
+      request-matcher:
+        # comma delimited whitelisted URL(s) to permitall (ignoring API security)
+        permit-all: /api/v1/user/auth

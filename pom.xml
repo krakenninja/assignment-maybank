@@ -1,0 +1,271 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    
+    <parent>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-parent</artifactId>
+        <version>3.3.4</version>
+    </parent>
+    
+    <groupId>my.com.maybank</groupId>
+    <artifactId>assignment-maybank</artifactId>
+    <version>${revision}</version>
+    <packaging>pom</packaging>
+    <name>assignment-maybank</name>
+    <description>
+        Assignment Maybank - Account Transactions (Candidate : Christopher CKW chris.ckw@gmail.com)
+    </description>
+    
+    <properties>
+        <!-- Project -->
+        <revision>1.0.0-SNAPSHOT</revision><!-- https://maven.apache.org/maven-ci-friendly.html -->
+        <java.version>17</java.version>
+        <maven.compiler.release>${java.version}</maven.compiler.release>
+        <maven.compiler.source>${java.version}</maven.compiler.source>
+        <maven.compiler.target>${java.version}</maven.compiler.target>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+        <maven.build.timestamp.format>yyyyMMdd</maven.build.timestamp.format>
+
+        <!-- Jakarta -->
+        <jakarta.annotation-api.version>3.0.0</jakarta.annotation-api.version>
+        
+        <!-- Jackson -->
+        <jackson.databind.version>2.18.0</jackson.databind.version>
+        
+        <!-- OpenTelemetry -->
+        <opentelemetry.api.version>1.42.1</opentelemetry.api.version>
+        
+        <!-- Crypto -->
+        <password4j.version>1.8.2</password4j.version>
+        
+        <!-- JPA/Hibernate -->
+        <datasource.proxy.version>1.10</datasource.proxy.version>
+        
+        <!-- CSV processor -->
+        <super.csv.version>2.4.0</super.csv.version>
+        
+        <!-- Maven Plugins -->
+        <jib.maven.version>3.4.3</jib.maven.version>
+        <flatten.maven.version>1.6.0</flatten.maven.version>
+        <maven.surefire.plugin.version>3.5.0</maven.surefire.plugin.version>
+        <junit.platform.surefire.provider.version>1.3.2</junit.platform.surefire.provider.version>
+        <junit.jupiter.engine.version>5.11.1</junit.jupiter.engine.version>
+        <maven.source.plugin.version>3.3.1</maven.source.plugin.version>
+        <maven.javadoc.plugin.version>3.10.1</maven.javadoc.plugin.version>
+    </properties>
+    
+    <modules>
+        <module>commons-core</module>
+        <module>commons-jpa</module>
+        <module>user-management-schema</module>
+        <module>accounting-management-schema</module>
+        <module>user-management-service</module>
+        <module>accounting-management-service</module>
+    </modules>
+
+    <dependencyManagement>
+        <dependencies>
+            <!-- Internal shared libs -->
+            <dependency>
+                <groupId>my.com.maybank</groupId>
+                <artifactId>commons-core</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>my.com.maybank</groupId>
+                <artifactId>commons-jpa</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>my.com.maybank</groupId>
+                <artifactId>user-management-schema</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>my.com.maybank</groupId>
+                <artifactId>accounting-management-schema</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            
+            <!-- Mico-serviced Modules -->
+            <dependency>
+                <groupId>my.com.maybank</groupId>
+                <artifactId>user-management-service</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>my.com.maybank</groupId>
+                <artifactId>accounting-management-service</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            
+            <!-- Jakarta -->
+            <dependency>
+                <groupId>jakarta.annotation</groupId>
+                <artifactId>jakarta.annotation-api</artifactId>
+                <version>${jakarta.annotation-api.version}</version>
+            </dependency>
+            
+            <!-- Jackson -->
+            <dependency>
+                <groupId>com.fasterxml.jackson.core</groupId>
+                <artifactId>jackson-databind</artifactId>
+                <version>${jackson.databind.version}</version>
+            </dependency>
+            
+            <!-- OpenTelemetry -->
+            <dependency>
+                <groupId>io.opentelemetry</groupId>
+                <artifactId>opentelemetry-api</artifactId>
+                <version>${opentelemetry.api.version}</version>
+            </dependency>
+            
+            <!-- Crypto -->
+            <dependency>
+                <groupId>com.password4j</groupId>
+                <artifactId>password4j</artifactId>
+                <version>${password4j.version}</version>
+            </dependency>
+            
+            <!-- JPA/Hibernate -->
+            <dependency>
+                <groupId>net.ttddyy</groupId>
+                <artifactId>datasource-proxy</artifactId>
+                <version>${datasource.proxy.version}</version>
+            </dependency>
+            
+            <!-- CSV processor -->
+            <dependency>
+                <groupId>net.sf.supercsv</groupId>
+                <artifactId>super-csv</artifactId>
+                <version>${super.csv.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>net.sf.supercsv</groupId>
+                <artifactId>super-csv-java8</artifactId>
+                <version>${super.csv.version}</version>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+	
+    <build>
+        <pluginManagement>
+            <plugins>
+                <plugin>
+                    <groupId>com.google.cloud.tools</groupId>
+                    <artifactId>jib-maven-plugin</artifactId>
+                    <version>${jib.maven.version}</version>
+                </plugin>
+                <plugin>
+                    <groupId>org.codehaus.mojo</groupId>
+                    <artifactId>flatten-maven-plugin</artifactId>
+                    <version>${flatten.maven.version}</version>
+                    <configuration>
+                        <updatePomFile>true</updatePomFile>
+                        <flattenMode>resolveCiFriendliesOnly</flattenMode>
+                    </configuration>
+                    <executions>
+                        <execution>
+                            <id>flatten</id>
+                            <phase>process-resources</phase>
+                            <goals>
+                                <goal>flatten</goal>
+                            </goals>
+                        </execution>
+                        <execution>
+                            <id>flatten.clean</id>
+                            <phase>clean</phase>
+                            <goals>
+                                <goal>clean</goal>
+                            </goals>
+                        </execution>
+                    </executions>
+                </plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-surefire-plugin</artifactId>
+                    <version>${maven.surefire.plugin.version}</version>
+                    <executions>
+                        <execution>
+                            <id>default-test</id>
+                            <phase>test</phase>
+                            <goals>
+                                <goal>test</goal>
+                            </goals>
+                        </execution>
+                    </executions>
+                </plugin>
+                <!-- deploy source jar -->
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-source-plugin</artifactId>
+                    <version>${maven.source.plugin.version}</version>
+                </plugin>
+                <!-- deploy javadoc jar -->
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-javadoc-plugin</artifactId>
+                    <version>${maven.javadoc.plugin.version}</version>
+                </plugin>
+            </plugins>
+        </pluginManagement>
+        <plugins>
+            <plugin>
+                <groupId>com.google.cloud.tools</groupId>
+                <artifactId>jib-maven-plugin</artifactId>
+                <configuration>
+                    <skip>${jib.docker.build.skip}</skip>
+                    <from>
+                        <image>amazoncorretto:17.0.12-alpine</image>
+                        <platforms>
+                            <platform>
+                                <architecture>amd64</architecture>
+                                <os>linux</os>
+                            </platform>
+                            <platform>
+                                <architecture>arm64</architecture>
+                                <os>linux</os>
+                            </platform>
+                        </platforms>
+                    </from>
+                    <to>
+                        <image>${project.artifactId}</image>
+                        <tags>
+                            <tag>${project.version}</tag>
+                        </tags>
+                    </to>
+                    <container>
+                        <mainClass>${jib.docker.container.mainClassName}</mainClass>
+                        <appRoot>/opt/app/</appRoot>
+                        <jvmFlags>
+                            <jvmFlag>-Dspring.profiles.active=keycloak</jvmFlag>
+                        </jvmFlags>
+                    </container>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-dependency-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>copy-dependencies</id>
+                        <phase>prepare-package</phase>
+                        <goals>
+                            <goal>copy-dependencies</goal>
+                        </goals>
+                        <configuration>
+                            <outputDirectory>${project.build.directory}/classes/lib</outputDirectory>
+                            <overWriteReleases>false</overWriteReleases>
+                            <overWriteSnapshots>false</overWriteSnapshots>
+                            <overWriteIfNewer>true</overWriteIfNewer>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
+</project>

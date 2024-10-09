@@ -1,0 +1,19 @@
+<?xml version="1.1" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+        http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+    <!-- BEGIN_INITDEMO :: for PoC/Demo sake ; I will create the required user 
+         accounts as per data file "dataSource.txt" provided by Maybank, in 
+        assumption that by right the users should already exist in the system
+    -->
+    <changeSet author="maybank" 
+               id="insert-table-user-account-1.0.0">
+        <loadData file="user-account-data-1.0.0.csv" 
+                  tableName="tbl_user_account"
+                  separator=","
+                  relativeToChangelogFile="true"/>
+    </changeSet>
+    <!-- END_INITDEMO -->
+</databaseChangeLog>

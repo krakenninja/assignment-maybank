@@ -1,0 +1,86 @@
+<?xml version="1.1" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+        http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+    <changeSet author="maybank" 
+               id="create-table-user-account-1.0.0">
+        <createTable tableName="tbl_user_account">
+            <column name="col_account_number" 
+                    type="VARCHAR(255)" 
+                    remarks="Column used to store account number (primary key)">
+                <constraints nullable="false" 
+                             primaryKey="true"/>
+            </column>
+            <column name="col_customer_id" 
+                    type="BIGINT" 
+                    remarks="Column used to store customer identifier (look at `tbl_user->id` user-management-service micro-service)">
+              <constraints nullable="false" />
+            </column>
+            <column name="col_created" 
+                    type="TIMESTAMP" 
+                    remarks="Column used to store created timestamp" 
+                    defaultValueComputed="CURRENT_TIMESTAMP">
+              <constraints nullable="false" />
+            </column>
+            <column name="col_modified" 
+                    type="TIMESTAMP" 
+                    remarks="Column used to store modified timestamp" 
+                    defaultValueComputed="CURRENT_TIMESTAMP">
+              <constraints nullable="false" />
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="maybank" 
+               id="create-index-user-account-custid-1.0.0">
+        <createIndex indexName="idx_account_custid" 
+                     tableName="tbl_user_account">
+            <column name="col_customer_id"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="maybank" 
+               id="create-table-account-transaction-1.0.0">
+        <createTable tableName="tbl_account_transaction">
+            <column name="col_id" 
+                    type="UUID" 
+                    remarks="Column used to store transaction identifier (primary key)">
+                <constraints nullable="false" 
+                             primaryKey="true"/>
+            </column>
+            <column name="col_account_number" 
+                    type="VARCHAR(255)" 
+                    remarks="Column used to link to 'tbl_user_account' (FK)">
+              <constraints nullable="false" 
+                           foreignKeyName="fk_account_trx_accno" 
+                           references="tbl_user_account(col_account_number)"/>
+            </column>
+            <column name="col_amount" 
+                    type="DOUBLE" 
+                    remarks="Column used to store the transaction amount">
+              <constraints nullable="false"/>
+            </column>
+            <column name="col_description" 
+                    type="VARCHAR(255)" 
+                    remarks="Column used to store the transaction description">
+              <constraints nullable="false"/>
+            </column>
+            <column name="col_trx_date" 
+                    type="DATE" 
+                    remarks="Column used to store transaction date">
+              <constraints nullable="false" />
+            </column>
+            <column name="col_trx_time" 
+                    type="TIME" 
+                    remarks="Column used to store transaction time">
+              <constraints nullable="false" />
+            </column>
+            <column name="col_modified" 
+                    type="TIMESTAMP" 
+                    remarks="Column used to store modified timestamp" 
+                    defaultValueComputed="CURRENT_TIMESTAMP">
+              <constraints nullable="false" />
+            </column>
+        </createTable>
+    </changeSet>
+</databaseChangeLog>
