@@ -55,7 +55,7 @@ services:
 #            KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://localhost:9092
 #            KAFKA_ADVERTISED_HOST_NAME: localhost
             KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://${ACCOUNTING_MANAGEMENT_SERVICE_KAFKA_ENDPOINT:-maybank-kafka-accounting-service:29092}
-            KAFKA_ADVERTISED_HOST_NAME: ${ACCOUNTING_MANAGEMENT_SERVICE_KAFKA_HOSTNAME:-maybank-kafka-accounting-servic}
+            KAFKA_ADVERTISED_HOST_NAME: ${ACCOUNTING_MANAGEMENT_SERVICE_KAFKA_HOSTNAME:-maybank-kafka-accounting-service}
             KAFKA_ZOOKEEPER_CONNECT: maybank-zookeeper-accounting-service:2181
             KAFKA_NUM_PARTITIONS: 1
         volumes:
