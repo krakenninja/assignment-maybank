@@ -20,11 +20,22 @@ An assessment assignment task to demonstrate following case study requirement(s)
 This section describes my approaches & assumptions based on the case study requirement(s) mentioned above : 
 
 * Proposing micro-serviced architecture with the following distributed system application(s) : 
-	* [User Management Service](user-management-service)
+	* [User Management Service](user-management-service) 
+		* Following is used to service a basic user authentication using `username` and `password` as the credential for API calls
+		* It will be populated with pre-defined roles and users when the application is started/booted for the first time using [Liquibase](http://liquibase.com) 
+		* `ONE(1)` API will be needed 
+			* An authenticate `http://localhost:18081/api/v1/user/auth` **[POST]** API will be exposed that will response HTTP `200(OK)` with JSON response body containing the authenticated user details (i.e. roles)
 	* [Accounting Management Service](accounting-management-service)
+		* Following is used to service `THREE(3)` APIs for our demo
+			* An upload `http://localhost:18082/api/v1/accounting/upload` **[POST]** API to allow to upload the batch [dataSource.txt](resources/docs/dataSource.txt) file as per-required that will response HTTP `200(OK)` with JSON response body containing a simple message 
+			* A batch update description `http://localhost:18082/api/v1/accounting` **[PATCH]** API to allow to update description by batch that will response HTTP `200(OK)` with JSON response body containing a simple message 
+			* An API to search paginated `http://localhost:18082/api/v1/accounting` **[POST]** API that will response HTTP `200(OK)` with JSON response body of a very basic pagination structure containing the array of result items per-page and a next page cursor to use to obtain the next page(s)
 	* [RDS - Postgresql](https://hub.docker.com/_/postgres)
+		* Database storage for the [User Management Service](user-management-service) and [Accounting Management Service](accounting-management-service) 
 	* [Zookeeper](https://hub.docker.com/r/wurstmeister/zookeeper)
+		* Internally used by Kafka to manage brokers to promote a leader
 	* [Kafka](https://hub.docker.com/r/wurstmeister/kafka)
+		* To produce batch operation instructions to a topic which then the listener to pickup and act on it
 
 ## 👤 User Management Service
 * It a requirement that the APIs **MUST BE** authenticated
