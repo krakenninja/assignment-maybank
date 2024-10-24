@@ -40,6 +40,24 @@ Below is the schema for **User Management Service** micro-service
 
 ![User Managment Service Schema](resources/docs/db-schema.usermgmt.svg)
 
+### Sample Demo Data
+
+#### Roles
+
+| ID | NAME |
+|---|---|
+| `a9842b08-f03f-479c-8949-c41baf984b9a` | `ROLE_USER` |
+| `2240c93b-fa2e-4882-b56a-ae579291d2f0` | `ROLE_ADMIN` |
+| `8982f932-dab8-4ed1-9b87-1a2adae5d36e` | `ROLE_CUSTOMER` |
+
+#### Users 
+
+| ID | USERNAME | PASSWORD | ROLE(s) |
+|---|---|---|---|
+| `1` | `admin` | `admin` | `ROLE_USER`, `ROLE_ADMIN` |
+| `222` | `john.doe` | `password` | `ROLE_USER`, `ROLE_CUSTOMER` |
+| `333` | `jane.doe` | `password` | `ROLE_USER`, `ROLE_CUSTOMER` |
+
 ## 🏦 Accounting Management Service
 * To handle **🗄️ BATCH JOB** requirement(s) : 
 	* **MUST BE** able to process the **🧾 CSV** formatted [resource file](resources/docs/dataSource.txt)
